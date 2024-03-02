@@ -12,7 +12,7 @@ import Skill from "../src/Component/Skill";
 import { Provider } from "react-redux";
 import useStore from "./Redux/useStore";
 
-function App() {
+const App = () => {
 	return (
 		<Provider store={useStore}>
 			<Router>
@@ -25,6 +25,6 @@ function App() {
 			</Router>
 		</Provider>
 	);
-}
+};
 
 export default App;
