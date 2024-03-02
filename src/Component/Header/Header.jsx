@@ -91,7 +91,7 @@ const Header = () => {
 	};
 
 	const handleCreateProfile = () => {
-		navigate("/createprofile");
+		navigate("/");
 	};
 
 	return (
