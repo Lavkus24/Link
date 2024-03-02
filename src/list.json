@@ -1,19 +1,17 @@
 [
-    {
-      "name": "Lavkus",
-      "email": "lav@example.com",
-      "instituteName": "Indian Institute Of Technology (Banaras Hindu University)",
-      "grade": 8.6,
-      "specification": "Material Science And Technology ",
-      "language": "English",
-      "state" : "Uttar Pradesh",
-      "District" : "Jaunpur",
-      "profileUrl" : "www//linkedin/404040/com",
-      "activity" : " Activities and societies: Served as Event Co-Coordinator for Sustainovation at Technex'21 IIT BHU's fest  focusing on sustainability",
-      "yoe" : "2019",
-      "yoj" : "2024",
-      "skill" : ["OOPS" , "Javascript" , "Mongodb" , "Reack Js" , " Node Js"]
-    }
-
-  ]
-  
+	{
+		"name": "Lavkus",
+		"email": "lav@example.com",
+		"instituteName": "Indian Institute Of Technology (Banaras Hindu University)",
+		"grade": 8.6,
+		"specification": "Material Science And Technology ",
+		"language": "English",
+		"state" : "Uttar Pradesh",
+		"District" : "Jaunpur",
+		"profileUrl" : "www//linkedin/404040/com",
+		"activity" : " Activities and societies: Served as Event Co-Coordinator for Sustainovation at Technex'21 IIT BHU's fest  focusing on sustainability",
+		"yoe" : "2019",
+		"yoj" : "2024",
+		"skill" : ["OOPS" , "Javascript" , "Mongodb" , "Reack Js" , " Node Js"]
+	}
+]

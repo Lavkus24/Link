@@ -1,33 +1,30 @@
-import './App.css';
-import Header from '../src/Component/Header/header'
-import Card from './Component/Profile/profile'
-import About from '../src/Component/About/about'
-import Info from '../src/Component/Info/info'
-import Education from '../src/Component/Education/education'
-import Skill from '../src/Component/Skill/skill'
-// import CreateProfile from '../src/Component/CreateProfile/createProfile'
-import { BrowserRouter as Router  , Route, Routes } from 'react-router-dom';
-import CreateProfile from '../src/Component/CreateProfile/createProfile'
-import { Provider } from 'react-redux';
-import store from './Redux/Store/store'
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+
+import "./App.css";
+
+import Header from "../src/Component/Header";
+import Card from "./Component/Profile";
+import About from "../src/Component/About";
+import Info from "../src/Component/Info";
+import Education from "../src/Component/Education";
+import Skill from "../src/Component/Skill";
+import { Provider } from "react-redux";
+import useStore from "./Redux/useStore";
 
 function App() {
-  return (
-    <Provider store={store}>
-      <Router>
-        {/* <CreateProfile/> */}
-        <Header/>
-        <Card/>
-        <Info/>
-        <About/>
-        <Education/>
-        <Skill/>
-        <Routes>
-            <Route path='createProfile' element={<CreateProfile/>} />
-        </Routes>
-      </Router>
-    </Provider>
-  );
+	return (
+		<Provider store={useStore}>
+			<Router>
+				<Header/>
+				<Card/>
+				<Info/>
+				<About/>
+				<Education/>
+				<Skill/>
+			</Router>
+		</Provider>
+	);
 }
 
 export default App;
