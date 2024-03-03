@@ -21,7 +21,7 @@ const authSlice = createSlice({
 	name: "userData",
 	initialState,
 	reducers: {
-
+       about : temp
 	}
 });
 
