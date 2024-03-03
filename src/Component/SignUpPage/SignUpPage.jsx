@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import SignUpMutation from '../../queryUtils/queryMutations'
 
 import LockOutlined from "@mui/icons-material/LockOutlined";
 
@@ -19,9 +20,26 @@ const SignUpPage = ({
 	userData,
 	showError,
 	isValidField,
-	handleTextFieldChange,
-	handleButtonClick
+	handleTextFieldChange
+	// handleButtonClick
 }) => {
+	
+		const handleButtonClick =  (action) => {
+			switch (action) {
+				case "submit":
+					console.log("Form submitted with data:", userData); // Log userData here
+					// Call the API function here
+					
+					 SignUpMutation(userData);
+					break;
+				case "changePage":
+					// Handle page change if needed
+					break;
+				default:
+					break;
+			}
+		};
+
 	return (
 		<Container component="main" maxWidth="xs">
 			<div style={styles.paper}>
@@ -112,7 +130,7 @@ const SignUpPage = ({
 						color="primary"
 						variant="contained"
 						style={styles.submit}
-						onClick={handleButtonClick("submit")}
+						onClick={() => handleButtonClick("submit")} // Change the onClick handler
 					>
 						{"Sign Up"}
 					</Button>
@@ -120,7 +138,7 @@ const SignUpPage = ({
 						<Grid item>
 							<Button
 								variant="text"
-								onClick={handleButtonClick("changePage")}
+								onClick={() => handleButtonClick("changePage")} // Change the onClick handler
 							>
 								{"Already have an account? Sign in"}
 							</Button>

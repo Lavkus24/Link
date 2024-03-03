@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-
 import LockOutlined from "@mui/icons-material/LockOutlined";
+import query from '../../queryUtils/userQuery'
 
 import {
 	Box,
@@ -22,6 +22,7 @@ const SignInPage = ({
 	handleTextFieldChange,
 	handleButtonClick
 }) => {
+
 	return (
 		<Grid container component="main" style={styles.root}>
 			<Grid item xs={false} sm={4} md={7} style={styles.image} />
