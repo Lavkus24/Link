@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import LockOutlined from "@mui/icons-material/LockOutlined";
-import query from '../../queryUtils/userQuery'
 
 import {
 	Box,

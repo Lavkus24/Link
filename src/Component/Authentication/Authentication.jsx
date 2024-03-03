@@ -3,9 +3,12 @@ import React, { useCallback, useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 
 import validator from "validator";
+import axios from "axios";
 
 import SignInPage from "../SignInPage";
 import SignUpPage from "../SignUpPage";
+
+import { useCreateUserData } from "../../queryUtils/queryUtils";
 
 const Authentication = () => {
 	const navigate = useNavigate();
@@ -20,6 +23,14 @@ const Authentication = () => {
 		password: "",
 		token: ""
 	});
+
+	const {
+		mutate: createUserData,
+		data: createdUserData,
+		status: createUserDataStatus,
+		message: createUserDataMessage,
+		reset: createUserDataReset
+	} = useCreateUserData();
 
 	const isValidField = useCallback(fieldKey => {
 		if (fieldKey === "firstName" || fieldKey === "lastName")
@@ -60,8 +71,7 @@ const Authentication = () => {
 		} else if (fieldKey === "submit") {
 			if (isValidFormData) {
 				if (onSignUpPage) {
-					// call sign up api here
-					setUserData({ ...userData, id: 1 }); // change only id temporary for testing
+					createUserData(userData);
 				} else {
 					// call login api here
 					setUserData({ ...userData, id: 1 }); // change only id temporary for testing
@@ -75,7 +85,8 @@ const Authentication = () => {
 		isValidFormData,
 		onSignUpPage,
 		userData,
-		setUserData
+		setUserData,
+		createUserData
 	]);
 
 	useEffect(() => {
@@ -85,6 +96,27 @@ const Authentication = () => {
 	}, [
 		navigate,
 		userData?.id
+	]);
+
+	useEffect(() => {
+		if (createUserDataStatus === "success") {
+			createUserDataReset();
+
+			setUserData(createdUserData);
+			axios.defaults.headers.common["Authorization"] = `Bearer ${createdUserData.token}`;
+
+			// show success message here
+		} else if (createUserDataStatus === "error") {
+			createUserDataReset();
+
+			// show error message here
+		}
+	}, [
+		setUserData,
+		createdUserData,
+		createUserDataStatus,
+		createUserDataMessage,
+		createUserDataReset
 	]);
 
 	return (
