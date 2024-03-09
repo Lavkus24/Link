@@ -1,33 +1,28 @@
-import React, { useState } from "react";
+import React from "react";
 import {
 	Grid,
 	Paper,
 	Button,
+	Dialog,
+	DialogTitle,
+	DialogContent,
+	DialogActions,
 	TextField
 } from "@mui/material";
-import { useSelector } from "react-redux";
+import PropTypes from "prop-types";
 
-const Info = () => {
-	const {
-		name,
-		instituteName,
-		state,
-		district
-	} = useSelector((state) => state.user);
+const Address = ({
+	educationDetails,
+	handleInputChange,
+	handleSave,
+	isDialogOpen,
+	handleAdd,
+	handleCloseDialog
+}) => {
 
-	const [editMode, setEditMode] = useState(false);
-
-	const handleEdit = () => {
-		setEditMode(true);
-	};
-
-	const handleSave = () => {
-		setEditMode(false);
-	};
 
 	return (
-		<Grid container spacing={2} alignItems="flex-start">
-			{/* First Grid */}
+		<Grid container spacing={2}>
 			<Grid item xs={8}>
 				<Paper
 					style={{
@@ -37,68 +32,74 @@ const Info = () => {
 						position: "relative"
 					}}
 				>
-					{editMode ? (
-						<>
-							<Button
-								variant="contained"
-								color="primary"
-								size="small"
-								style={{
-									position: "absolute",
-									top: "10px",
-									right: "10px",
-									zIndex: 1
-								}}
-								onClick={handleSave}
-							>
-                Save
-							</Button>
-							<TextField
-								fullWidth
-								label="Name"
-								value={name}
-								style={{ marginBottom: "10px" }}
-							/>
-							<TextField
-								fullWidth
-								label="Institute Name"
-								value={instituteName}
-								style={{ marginBottom: "10px" }}
-							/>
-							<TextField
-								fullWidth
-								label="State"
-								value={state}
-								style={{ marginBottom: "10px" }}
-							/>
-							<TextField
-								fullWidth
-								label="District"
-								value={district}
-							/>
-						</>
-					) : (
-						<>
-							<Button
-								variant="outlined"
-								size="small"
-								style={{ position: "absolute", top: "10px", right: "10px" }}
-								onClick={handleEdit}
-							>
-                Edit
-							</Button>
-							<h3>{name}</h3>
-							<h3>{instituteName}</h3>
-							<p>
-								{state} {district}
-							</p>
-
-						</>
-					)}
+					<Button
+						variant="outlined"
+						size="small"
+						style={{ position: "absolute", top: "10px", right: "10px" }}
+						onClick={handleAdd("Info")}
+					>
+            Add Address
+					</Button>
+					<h2>Address</h2>
+					<p>{educationDetails.instituteName}</p>
+					<p>
+						{educationDetails.name}
+					</p>
+					<p> {educationDetails.state} </p>
+					<p>{educationDetails.district}</p>
 				</Paper>
 			</Grid>
+			<Dialog open={isDialogOpen} onClose={handleCloseDialog}>
+				<DialogTitle>Add Education</DialogTitle>
+				<DialogContent>
+					<TextField
+						label="Name"
+						name="Name"
+						value={educationDetails.Name}
+						onChange={handleInputChange}
+						fullWidth
+						sx={{ mb: 2 }}
+					/>
+					<TextField
+						label="Institute Name"
+						name="instituteName"
+						value={educationDetails.instituteName}
+						onChange={handleInputChange}
+						fullWidth
+						sx={{ mb: 2 }}
+					/>
+					<TextField
+						label="state"
+						name="state"
+						value={educationDetails.state}
+						onChange={handleInputChange}
+						fullWidth
+						sx={{ mb: 2 }}
+					/>
+					<TextField
+						label="district"
+						name="district"
+						value={educationDetails.district}
+						onChange={handleInputChange}
+						fullWidth
+						sx={{ mb: 2 }}
+					/>
+				</DialogContent>
+				<DialogActions>
+					<Button onClick={handleCloseDialog}>Cancel</Button>
+					<Button onClick={handleSave("Info")}>Save</Button>
+				</DialogActions>
+			</Dialog>
 		</Grid>
 	);
 };
 
-export default Info;
+Address.propTypes = {
+	educationDetails: PropTypes.object.isRequired, // Corrected PropTypes
+	handleInputChange: PropTypes.func.isRequired ,// Corrected PropTypes
+	handleSave : PropTypes.func,
+	isDialogOpen : PropTypes.bool,
+	handleAdd: PropTypes.func,
+	handleCloseDialog : PropTypes.func
+};
+export default Address;

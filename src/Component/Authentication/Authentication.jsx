@@ -8,10 +8,15 @@ import axios from "axios";
 import SignInPage from "../SignInPage";
 import SignUpPage from "../SignUpPage";
 
-import { useCreateUserData } from "../../queryUtils/queryUtils";
+import { useCreateUserData , useSignInData } from "../../queryUtils/queryUtils";
+
+import { useDispatch } from "react-redux";
+
+import { setUserId } from "../../Redux/userReducer";
 
 const Authentication = () => {
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	const [showError, setShowError] = useState(false);
 	const [onSignUpPage, setOnSignUpPage] = useState(false);
@@ -29,8 +34,25 @@ const Authentication = () => {
 		data: createdUserData,
 		status: createUserDataStatus,
 		message: createUserDataMessage,
+		userId:userId,
 		reset: createUserDataReset
 	} = useCreateUserData();
+
+
+	const {
+		mutate : crateSignInData,
+		signId : signId,
+		status: signInStatus
+	} = useSignInData();
+
+	const Id = signId ? signId : userId;
+
+	if(Id) {
+		//eslint-disable-next-line
+		console.log('Id : ' , Id);
+		dispatch(setUserId(Id));
+
+	}
 
 	const isValidField = useCallback(fieldKey => {
 		if (fieldKey === "firstName" || fieldKey === "lastName")
@@ -73,10 +95,14 @@ const Authentication = () => {
 				if (onSignUpPage) {
 					createUserData(userData);
 				} else {
-					// call login api here
-					setUserData({ ...userData, id: 1 }); // change only id temporary for testing
+					const temp = { emailAddress : userData.emailAddress , password : userData.password };
+					const tempData = crateSignInData(temp);
+					//eslint-disable-next-line
+			console.log('tempData : ' , tempData)
 				}
 			} else {
+				//eslint-disable-next-line
+				console.log('error in error error  : ')
 				setShowError(true);
 			}
 		}
@@ -86,16 +112,21 @@ const Authentication = () => {
 		onSignUpPage,
 		userData,
 		setUserData,
-		createUserData
+		createUserData,
+		crateSignInData
 	]);
 
+	if(userData.id === 1) {
+		createUserData(userData);
+	}
 	useEffect(() => {
-		if (userData?.id) {
+
+		if (signInStatus) {
 			navigate("/profile");
 		}
 	}, [
 		navigate,
-		userData?.id
+		signInStatus
 	]);
 
 	useEffect(() => {

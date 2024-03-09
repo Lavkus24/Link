@@ -13,7 +13,7 @@ import axios from "axios";
 
 const App = () => {
 	const queryClient = new QueryClient();
-	axios.defaults.baseURL = "https://localhost:8080/";
+	axios.defaults.baseURL = "http://localhost:3001/";
 
 	return (
 		<QueryClientProvider client={queryClient} contextSharing={true}>
