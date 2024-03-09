@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
 	Grid,
 	Paper,
@@ -9,41 +9,15 @@ import {
 	DialogActions,
 	TextField
 } from "@mui/material";
-import { useDispatch } from "react-redux";
-
-const Education = () => {
-	const [isDialogOpen, setIsDialogOpen] = useState(false);
-	const [educationDetails, setEducationDetails] = useState({
-		instituteName: "",
-		specification: "",
-		yoj: "",
-		yoe: "",
-		grade: "",
-		activity: ""
-	});
-
-	const dispatch = useDispatch();
-
-	const handleInputChange = (e) => {
-		const { name, value } = e.target;
-		setEducationDetails((prevDetails) => ({
-			...prevDetails,
-			[name]: value
-		}));
-	};
-
-	const handleAddEducation = () => {
-		setIsDialogOpen(true);
-	};
-
-	const handleCloseDialog = () => {
-		setIsDialogOpen(false);
-	};
-
-	const handleSaveEducation = () => {
-		dispatch({ type: "ADD_EDUCATION", payload: educationDetails });
-		setIsDialogOpen(false);
-	};
+import PropTypes from "prop-types";
+const Education = ({
+	educationDetails,
+	handleInputChange,
+	handleSave,
+	isDialogOpen,
+	handleAdd,
+	handleCloseDialog
+}) => {
 
 	return (
 		<Grid container spacing={2}>
@@ -60,7 +34,7 @@ const Education = () => {
 						variant="outlined"
 						size="small"
 						style={{ position: "absolute", top: "10px", right: "10px" }}
-						onClick={handleAddEducation}
+						onClick={handleAdd("Education")}
 					>
             Add Education
 					</Button>
@@ -77,7 +51,7 @@ const Education = () => {
 					<p>{educationDetails.activity}</p>
 				</Paper>
 			</Grid>
-			<Dialog open={isDialogOpen} onClose={handleCloseDialog}>
+			<Dialog open={isDialogOpen} onClose={handleCloseDialog("Education")}>
 				<DialogTitle>Add Education</DialogTitle>
 				<DialogContent>
 					<TextField
@@ -128,14 +102,30 @@ const Education = () => {
 						fullWidth
 						sx={{ mb: 2 }}
 					/>
+					<TextField
+						label="Language"
+						name="activity"
+						value={educationDetails.language}
+						onChange={handleInputChange}
+						fullWidth
+						sx={{ mb: 2 }}
+					/>
 				</DialogContent>
 				<DialogActions>
-					<Button onClick={handleCloseDialog}>Cancel</Button>
-					<Button onClick={handleSaveEducation}>Save</Button>
+					<Button onClick={handleCloseDialog("Education")}>Cancel</Button>
+					<Button onClick={handleSave("Education")}>Save</Button>
 				</DialogActions>
 			</Dialog>
 		</Grid>
 	);
 };
 
+Education.propTypes = {
+	educationDetails: PropTypes.object.isRequired, // Corrected PropTypes
+	handleInputChange: PropTypes.func.isRequired ,// Corrected PropTypes
+	handleSave : PropTypes.func,
+	isDialogOpen : PropTypes.bool,
+	handleAdd: PropTypes.func,
+	handleCloseDialog : PropTypes.func
+};
 export default Education;

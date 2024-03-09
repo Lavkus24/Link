@@ -7,28 +7,25 @@ import {
 	TextField
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
-import { useSelector } from "react-redux";
-
-const Profile = () => {
+import PropTypes from "prop-types";
+const Profile = (
+	educationDetails,
+	handleInputChange
+) => {
 	const [editMode, setEditMode] = useState(false);
-	const [language, setLanguage] = useState("English");
 	const [profileUrl, setProfileUrl] = useState("www.linkedin.com/in/lavkus-yadav-00aa8421a");
 	const [editedLanguage, setEditedLanguage] = useState("");
 	const [editedProfileUrl, setEditedProfileUrl] = useState("");
 
-	const {
-		language1,
-		profileUrl1
-	} = useSelector(state => state.user);
+
 
 	const handleEditClick = () => {
 		setEditMode(true);
-		setEditedLanguage(language);
+		setEditedLanguage(educationDetails.language);
 		setEditedProfileUrl(profileUrl);
 	};
 
 	const handleSaveChanges = () => {
-		setLanguage(editedLanguage); // Update state with edited values
 		setProfileUrl(editedProfileUrl);
 		setEditMode(false); // Exit edit mode after saving changes
 	};
@@ -55,7 +52,7 @@ const Profile = () => {
 							<TextField
 								label="Language"
 								value={editedLanguage}
-								onChange={(e) => setEditedLanguage(e.target.value)}
+								onChange={(handleInputChange)}
 								style={{ marginBottom: "10px", width: "100%" }}
 							/>
 							<TextField
@@ -69,9 +66,9 @@ const Profile = () => {
 					) : (
 						<>
 							<h2>Language</h2>
-							<p>{language1}</p>
+							<p>{educationDetails.language}</p>
 							<h2>Profile URL</h2>
-							<p>{profileUrl1}</p>
+							<p></p>
 							<Button
 								variant="outlined"
 								size="small"
@@ -88,4 +85,8 @@ const Profile = () => {
 	);
 };
 
+Profile.propTypes = {
+	educationDetails: PropTypes.object,
+	handleInputChange: PropTypes.func
+};
 export default Profile;
