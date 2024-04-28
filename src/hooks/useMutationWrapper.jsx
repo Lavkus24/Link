@@ -25,8 +25,6 @@ export const useMutationSignInWrapper = (apiFunction) => {
 export const useMutationUpdateWrapper = (apiFunction) => {
 
 	const mutation = useMutation(apiFunction);
-	//eslint-disable-next-line
-	console.log('apiFunction : ' , apiFunction);
 	return {
 		mutate: mutation.mutate,
 		status: mutation.isSuccess

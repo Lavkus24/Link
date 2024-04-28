@@ -1,0 +1,16 @@
+{
+	"eslint.enable": true,
+	"eslint.validate": [
+		"javascript", // ...
+		"html" // Add "html" to enable linting `.html` files.
+	],
+	"eslint.experimental.useFlatConfig": false,
+	"eslint.format.enable": true,
+	"eslint.ignoreUntitled": false,
+	"eslint.debug": false,
+	"eslint.useESLintClass": false,
+	"eslint.lintTask.enable": true,
+	"eslint.codeAction.showDocumentation": {
+		"enable": false
+	}
+}
