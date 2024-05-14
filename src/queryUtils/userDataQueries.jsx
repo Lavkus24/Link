@@ -7,6 +7,8 @@ export const createUserData = async userData => {
 	return response;
 };
 export const getUserData = async (userId) => {
+
+
 	const response = await axios.get(`getData/${userId}`)
 		.then(response => response.data)
 		.catch(error => error?.response ? error.response.data : { status: "error", message: error.message });
@@ -21,8 +23,8 @@ export const createSignInData = async userData => {
 };
 
 
-export const updateUserData = async (userId , updateData) => {
-	const response = await axios.post(`update/${userId}`, updateData)
+export const updateUserData = async (educationDetails) => {
+	const response = await axios.put("updateData", educationDetails)
 		.then(response => response.data)
 		.catch(error => error?.response ? error.response.data : { status: "error", message: error.message });
 	return response;

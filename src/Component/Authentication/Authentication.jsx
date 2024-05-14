@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState, useMemo } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 
@@ -51,6 +51,7 @@ const Authentication = () => {
 		//eslint-disable-next-line
 		console.log('Id : ' , Id);
 		dispatch(setUserId(Id));
+		localStorage.setItem("userId", Id);
 
 	}
 

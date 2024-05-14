@@ -18,9 +18,16 @@ const ProfilePage = () => {
 	const [isDialogOpenEducation, setIsDialogOpenEducation] = useState(false);
 
 
+	//eslint-disable-next-line
+	console.log("userId  : in profile page " , userId)
 	const {
-		data  : retrieveData
-	} = useGetUserData(userId);
+		data : retrieveData
+	}  = useGetUserData(userId);
+
+
+	//eslint-disable-next-line
+		console.log("response in profile page " , retrieveData);
+
 	const [educationDetails, setEducationDetails] = useState({
 		instituteName: "",
 		specification: "",
@@ -32,33 +39,38 @@ const ProfilePage = () => {
 		state:"",
 		district:"",
 		skill :"",
-		language:""
+		language:"",
+		userId : ""
 	});
 
-	// useEffect(() => {
-	// 	//eslint-disable-next-line
-	// 	console.log("data from profile Page:", retrieveData?.data);
-	// 	const newData = retrieveData?.data;
-	// setEducationDetails(prevState => ({
-	// 	...prevState,
-	// 	instituteName: newData.instituteName || "",
-	// 	specification: newData.specification || "",
-	// 	yoj: newData.yoj || "",
-	// 	yoe: newData.yoe || "",
-	// 	grade: newData.grade || "",
-	// 	activity: newData.activity || "",
-	// 	Name: newData.Name || "",
-	// 	state: newData.state || "",
-	// 	district: newData.district || "",
-	// 	skill: newData.skill || "",
-	// 	language: newData.language || ""
-	// }));
-	// }, [retrieveData?.data]);
+	useEffect(() => {
+		const newData = retrieveData?.data;
+
+		//eslint-disable-next-line
+	console.log("response in newData msngfkjjk page " , newData);
+		setEducationDetails(prevState => ({
+			...prevState,
+			instituteName:  newData?.instituteName || "",
+			specification: newData?.specification || "",
+			yoj: newData?.yoj || "",
+			yoe: newData?.yoe || "",
+			grade: newData?.grade || "",
+			activity: newData?.activity || "",
+			Name: newData?.Name || "",
+			state: newData?.state || "",
+			district: newData?.district || "",
+			skill: newData?.skill || "",
+			language: newData?.language || ""
+		}));
+	}, [retrieveData?.data]);
 
 	const {
 		mutate: createUserData,
 		data: createdUserData
 	} = useUpdateUserData();
+
+	//eslint-disable-next-line
+	console.log("createdUserData Profile page " , createdUserData);
 
 	const handleSave = useCallback(fieldKey => () => {
 		if(fieldKey==="About") {
@@ -71,12 +83,11 @@ const ProfilePage = () => {
 			dispatch({ type: "ADD_EDUCATION", payload: educationDetails });
 			setIsDialogOpenEducation(false);
 		}else if(fieldKey==="Skill") {
-			dispatch({ type: "ADD_Skill", payload: educationDetails });
+			dispatch({ type: "ADD_SKILL", payload: educationDetails });
 			setIsDialogOpenSkill(false);
 		}
-		//eslint-disable-next-line
-		console.log('userID ' , userId ,  " lkdfm " , educationDetails);
-		createUserData(userId , educationDetails);
+		educationDetails.userId = userId;
+		createUserData(educationDetails);
 	},[
 		dispatch,
 		setIsDialogOpenAbout,
